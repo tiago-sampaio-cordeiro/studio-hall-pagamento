@@ -1,4 +1,4 @@
-module Payroll
+module PaymentCalculation
   class Payment
     STANDARD_MONTHLY_HOURS = 176
 

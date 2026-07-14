@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :employees do
       resources :reports, only: [:index]
     end
-    resources :registers
+    resources :employees
     resources :reports, only: [:index]
   end
 

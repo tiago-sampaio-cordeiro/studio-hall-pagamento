@@ -1,5 +1,5 @@
 module Reports
-  class AdminPayrollReport
+  class AdminEmployeesPaymentReport
     def initialize(range:)
       @range = range
     end
@@ -17,21 +17,22 @@ module Reports
     private
 
     def build_employee_result(employee, punches)
-      hours = Payroll::HoursCalculator.new(punches: punches).call
+      hours = PaymentCalculation::HoursCalculator.new(punches: punches).call
 
       {
         employee: employee,
         hours: hours,
-        amount: Payroll::Payment.new(employee: employee, worked_hours: hours).call
+        amount: PaymentCalculation::Payment.new(employee: employee, worked_hours: hours).call
       }
     end
 
+    # verificar se estes métodos estão sendo usados
     def calculate_hours(punches)
-      Payroll::HoursCalculator.new(punches: punches).call
+      PaymentCalculation::HoursCalculator.new(punches: punches).call
     end
 
     def calculate_payment(employee)
-      Payroll::Payment.new(employee: employee, range: @range).call
+      PaymentCalculation::Payment.new(employee: employee, range: @range).call
     end
   end
 end

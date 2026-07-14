@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin::RegistersController, type: :controller do
+RSpec.describe Admin::EmployeesController, type: :controller do
   let(:admin) { create(:user, :admin) }
   let(:employee) { create(:user) }
 

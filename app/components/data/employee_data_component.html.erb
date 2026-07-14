@@ -55,7 +55,7 @@
 
   <%# Botões %>
   <div class="flex gap-2 pt-4 border-t border-gray-800">
-    <%= link_to edit_admin_register_path(user),
+    <%= link_to edit_admin_employee_path(user),
                 class: "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium
                       border border-gray-700 text-gray-400 hover:border-gray-500 hover:text-gray-300
                       transition-all duration-200" do %>
@@ -66,7 +66,7 @@
     <% end %>
 
     <div class="flex-1">
-      <%= link_to admin_register_path(user),
+      <%= link_to admin_employee_path(user),
                   class: "w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium
                 border border-blue-900 text-blue-400 hover:bg-blue-950 hover:border-blue-700
                 transition-all duration-200" do %>

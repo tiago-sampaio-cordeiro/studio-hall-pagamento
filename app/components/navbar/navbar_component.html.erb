@@ -29,7 +29,7 @@
                 <%= link_to "Home", employees_root_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white" %>
               <% end %>
               <% if Current.user.admin? %>
-                <%= link_to "Funcionários", admin_registers_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white" %>
+                <%= link_to "Funcionários", admin_employees_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white" %>
               <% end %>
               <% if Current.user.employee? %>
                 <%= link_to "Registrar ponto", employees_time_punches_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white" %>
@@ -83,7 +83,7 @@
           <%= link_to "Home", employees_root_path, class: "block rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white" %>
         <% end %>
         <% if Current.user.admin? %>
-          <%= link_to "Funcionários", admin_registers_path, class: "block rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white" %>
+          <%= link_to "Funcionários", admin_employees_path, class: "block rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white" %>
         <% end %>
         <% if Current.user.employee? %>
           <%= link_to "Registrar ponto", employees_time_punches_path, class: "block rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white" %>
