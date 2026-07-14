@@ -26,6 +26,7 @@ module Reports
       }
     end
 
+    # verificar se estes métodos estão sendo usados
     def calculate_hours(punches)
       PaymentCalculation::HoursCalculator.new(punches: punches).call
     end
