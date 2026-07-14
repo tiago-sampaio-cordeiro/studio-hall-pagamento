@@ -9,7 +9,7 @@ class Admin::ReportsController < ApplicationController
       @results = Reports::EmployeeDailyReport.new(employee: @employee, range: range).call
       render :employee_report
     else
-      @results = Reports::AdminPayrollReport.new(range: range).call
+      @results = Reports::AdminEmployeesPaymentReport.new(range: range).call
     end
   end
 

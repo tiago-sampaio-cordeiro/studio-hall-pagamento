@@ -1,5 +1,5 @@
 module Reports
-  class AdminPayrollReport
+  class AdminEmployeesPaymentReport
     def initialize(range:)
       @range = range
     end
