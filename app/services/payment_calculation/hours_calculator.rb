@@ -1,4 +1,4 @@
-module Payroll
+module PaymentCalculation
   class HoursCalculator
     def initialize(punches:)
       @punches = punches.sort_by(&:punched_at)
