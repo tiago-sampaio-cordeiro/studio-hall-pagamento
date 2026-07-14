@@ -1,4 +1,4 @@
-<%= form_with url: form_url, method: form_method,
+<%= form_with model: user, url: form_url, method: form_method,
               data: { controller: "form-validation", action: "submit->form-validation#validate" } do |f| %>
 
   <%# SEÇÃO: Dados Pessoais %>
