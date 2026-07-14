@@ -1,4 +1,4 @@
-class Admin::RegistersController < ApplicationController
+class Admin::EmployeesController < ApplicationController
   before_action :require_admin
 
   def index
@@ -20,7 +20,7 @@ class Admin::RegistersController < ApplicationController
     )
 
     if service.call
-      redirect_to admin_registers_path, notice: "Funcionário cadastrado com sucesso!"
+      redirect_to admin_employees_path, notice: "Funcionário cadastrado com sucesso!"
     else
       @errors = service.errors
       @user = User.new(user_params)
@@ -40,7 +40,7 @@ class Admin::RegistersController < ApplicationController
     )
 
     if service.update
-      redirect_to admin_registers_path, notice: "Funcionário atualizado com sucesso!"
+      redirect_to admin_employees_path, notice: "Funcionário atualizado com sucesso!"
     else
       @errors = service.errors
       @user = User.find(params[:id])
