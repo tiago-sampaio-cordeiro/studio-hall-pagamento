@@ -1,5 +1,5 @@
-module Register
-  class EmployeeRecords
+module EmployeesRegistration
+  class CreateEmployee
     attr_reader :errors
 
     def initialize(user_attrs:, employee_attrs:, user_id: nil)

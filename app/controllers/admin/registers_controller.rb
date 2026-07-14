@@ -14,7 +14,7 @@ class Admin::RegistersController < ApplicationController
   end
 
   def create
-    service = Register::EmployeeRecords.new(
+    service = EmployeesRegistration::CreateEmployee.new(
       user_attrs: user_params,
       employee_attrs: employee_params
     )
@@ -33,7 +33,7 @@ class Admin::RegistersController < ApplicationController
   end
 
   def update
-    service = Register::EmployeeRecords.new(
+    service = EmployeesRegistration::CreateEmployee.new(
       user_attrs: user_params,
       employee_attrs: employee_params,
       user_id: params[:id]
