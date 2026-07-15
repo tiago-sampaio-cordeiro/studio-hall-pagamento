@@ -17,7 +17,7 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 # use gem view_component to components
-gem 'view_component', '~> 4.4'
+gem 'view_component', '~> 4.12'
 # use gem tailwindcss to frontend
 gem 'tailwindcss-rails', '~> 4.4'
 gem 'tailwindcss-ruby', '~> 4.1', '>= 4.1.18'
