@@ -19,7 +19,7 @@ gem "jbuilder"
 # use gem view_component to components
 gem 'view_component', '~> 4.4'
 # use gem tailwindcss to frontend
-gem 'tailwindcss-rails', '~> 4.4'
+gem 'tailwindcss-rails', '~> 4.6'
 gem 'tailwindcss-ruby', '~> 4.1', '>= 4.1.18'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
