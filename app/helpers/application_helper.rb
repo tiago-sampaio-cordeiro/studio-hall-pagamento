@@ -1,6 +1,6 @@
 module ApplicationHelper
   def format_hours(decimal_hours)
-    total_seconds = (decimal_hours * 3600).round
+    total_seconds = (decimal_hours * 3600)
     hours = total_seconds / 3600
     minutes = (total_seconds % 3600) / 60
     seconds = total_seconds % 60
