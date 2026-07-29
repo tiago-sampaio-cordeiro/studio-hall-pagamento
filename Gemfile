@@ -20,7 +20,7 @@ gem "jbuilder"
 gem 'view_component', '~> 4.4'
 # use gem tailwindcss to frontend
 gem 'tailwindcss-rails', '~> 4.4'
-gem 'tailwindcss-ruby', '~> 4.1', '>= 4.1.18'
+gem 'tailwindcss-ruby', '~> 4.3'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 # use foreman to run multiples process(Rails + tailwind watcher)
