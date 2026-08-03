@@ -22,7 +22,7 @@
       <%= render "shared/form_register_employee",
                  form_url: admin_employees_path,
                  form_method: :post,
-                 user: User.new,
+                 form: @form,
                  submit_label: "Cadastrar",
                  password_label: "Senha",
                  password_placeholder: "••••••••" %>
