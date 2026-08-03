@@ -20,9 +20,9 @@
       </div>
 
       <%= render "shared/form_register_employee",
-                 form_url: admin_employee_path(@user),
+                 form_url: admin_employee_path(@form.user_id),
                  form_method: :patch,
-                 user: @user,
+                 form: @form,
                  submit_label: "Salvar",
                  password_label: "Nova Senha",
                  password_placeholder: "Deixe em branco para manter a atual" %>
