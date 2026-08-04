@@ -11,7 +11,7 @@ class EmployeeRegistrationForm
   attribute :last_name, :string
   attribute :email_address, :string
   attribute :active, :boolean, default: true
-  attribute :role, :string
+  attribute :role, :string, default: "employee"
   attribute :password, :string
   attribute :password_confirmation, :string
 
