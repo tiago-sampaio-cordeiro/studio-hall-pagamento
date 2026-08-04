@@ -1,0 +1,21 @@
+pt-BR:
+  activemodel:
+    attributes:
+      user:
+        first_name: "Nome do funcionário"
+        last_name: "Sobrenome"
+        email_address: "E-mail"
+        birth_date: "Data de Nascimento"
+        rg: "RG"
+        cpf: "CPF"
+        gender: "Gênero"
+        phone_number: "Telefone"
+        contract_type: "Tipo de Contrato"
+        admission_date: "Data de Admissão"
+        position: "Cargo"
+        salary: "Salário Base"
+        hourly_rate: "Valor por Hora"
+        role: "Perfil"
+        password: "Senha"
+        password_confirmation: "Confirmar Senha"
+        active: "Funcionário ativo"

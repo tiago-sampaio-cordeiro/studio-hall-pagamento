@@ -19,7 +19,6 @@ class Admin::EmployeesController < ApplicationController
     if @form.save
       redirect_to admin_employees_path, notice: "Funcionário cadastrado com sucesso!"
     else
-      puts "ERROS DE VALIDAÇÃO: #{@form.errors.full_messages}"
       render :new, status: :unprocessable_entity
     end
   end
