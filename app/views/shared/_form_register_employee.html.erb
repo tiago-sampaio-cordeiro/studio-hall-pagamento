@@ -1,39 +1,48 @@
-<%= form_with model: form, url: form_url, method: form_method, scope: :user,
-              data: { controller: "form-validation", action: "submit->form-validation#validate" } do |f| %>
+<%= form_with model: form, url: form_url, method: form_method do |f| %>
+  <% if form.errors.any? %>
+    <div class="mb-6 px-4 py-3 bg-rose-950 border border-rose-700 text-rose-400 text-sm rounded-lg">
+      <p class="font-semibold mb-2">Corrija os seguintes erros:</p>
+      <ul class="list-disc list-inside space-y-1">
+        <% form.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <%# SEÇÃO: Dados Pessoais %>
   <div class="mb-4">
     <p class="text-xs font-medium text-emerald-500 uppercase tracking-widest mb-4">Dados Pessoais</p>
     <div class="grid sm:grid-col md:grid-cols-3 gap-4">
       <div>
         <%= f.label :first_name, "Nome do funcionário", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
-        <%= f.text_field :first_name, data: { required: "true" }, placeholder: "João",
+        <%= f.text_field :first_name, placeholder: "João",
                          class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
       </div>
       <div>
         <%= f.label :last_name, "Sobrenome", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
-        <%= f.text_field :last_name, data: { required: "true" }, placeholder: "Silva",
+        <%= f.text_field :last_name, placeholder: "Silva",
                          class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
       </div>
       <div>
         <%= f.label :birth_date, "Data de Nascimento", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
-        <%= f.date_field :birth_date, data: { required: "true" },
+        <%= f.date_field :birth_date,
                          class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors duration-200 [color-scheme:dark]" %>
       </div>
     </div>
     <div class="grid sm:grid-col md:grid-cols-3 gap-4 mt-4">
       <div>
         <%= f.label :rg, "rg", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
-        <%= f.text_field :rg, placeholder: "123456789-0", data: { required: "true" },
+        <%= f.text_field :rg, placeholder: "123456789-0",
                          class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
       </div>
       <div>
         <%= f.label :cpf, "cpf", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
-        <%= f.text_field :cpf, placeholder: "Ex: 000000000", data: { required: "true" },
+        <%= f.text_field :cpf, placeholder: "Ex: 000000000",
                          class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
       </div>
       <div>
         <%= f.label :email_address, "E-mail", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
-        <%= f.email_field :email_address, placeholder: "joao@email.com", data: { required: "true" },
+        <%= f.email_field :email_address, placeholder: "joao@email.com",
                           class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
       </div>
     </div>
@@ -48,7 +57,7 @@
         <%= f.label :gender, "Gênero", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
         <%= f.select :gender,
                      [["Masculino", "masculino"], ["Feminino", "feminino"]],
-                     { prompt: "Selecione" }, data: { required: "true" },
+                     { prompt: "Selecione" },
                      class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors duration-200 cursor-pointer" %>
       </div>
     </div>
@@ -120,10 +129,9 @@
   <div class="border-t border-gray-700 my-6"></div>
   <%# SEÇÃO: Acesso ao Sistema %>
   <div class="mb-4">
-    <p class="text-xs font-medium text-emerald-500 uppercase tracking-widest mb-4">Acesso ao Sistema</p>
+    <p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">Perfil</p>
     <div class="space-y-4">
       <div>
-        <p class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">Perfil</p>
         <div class="grid grid-cols-2 gap-3">
           <label class="flex items-center gap-3 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 cursor-pointer hover:border-emerald-500 transition-colors duration-200 has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-950">
             <%= f.radio_button :role, "employee", checked: form.employee_role?, class: "w-4 h-4 text-emerald-500 border-gray-500 bg-gray-700 focus:outline-none focus:ring-0" %>
@@ -162,10 +170,6 @@
       </div>
     </div>
   </div>
-  <p data-form-validation-target="submitWarning"
-     class="hidden text-red-400 text-sm mb-2 w-full text-center">
-    ⚠️ Preencha todos os campos obrigatórios antes de continuar.
-  </p>
   <%# Botões %>
   <div class="flex gap-3 mt-8">
     <%= link_to "Cancelar", admin_employees_path,
@@ -188,7 +192,6 @@
         }
     }
 
-    // Mudança aqui: de 'DOMContentLoaded' para 'turbo:load'
     document.addEventListener('turbo:load', function () {
         const contractType = "<%= form.contract_type %>";
         if (contractType) toggleContractFields(contractType);
