@@ -44,6 +44,10 @@ module Reports
         end
       end
 
+      # se sobrou uma entrada sem saída (funcionário ainda não bateu ponto de saída),
+      # inclui mesmo assim para aparecer no relatório como "em andamento"
+      pairs << { clock_in: open_clock_in, clock_out: nil } if open_clock_in
+
       pairs
     end
 
