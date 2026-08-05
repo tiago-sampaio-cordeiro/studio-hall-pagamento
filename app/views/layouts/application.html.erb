@@ -28,6 +28,7 @@
       <%= render Navbar::NavbarComponent.new %>
     <% end %>
     <main class="mt-32">
+      <%= render "shared/flash" %>
       <%= yield %>
     </main>
     <%= render Footer::FooterComponent.new %>

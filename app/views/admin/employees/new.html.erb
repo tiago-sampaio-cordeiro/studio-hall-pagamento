@@ -1,17 +1,6 @@
 <div class="w-full flex items-start justify-center">
   <div>
 
-    <% if notice = flash[:notice] %>
-      <div class="mb-6 px-4 py-3 bg-emerald-950 border border-emerald-700 text-emerald-400 text-sm rounded-lg text-center tracking-wide">
-        <%= notice %>
-      </div>
-    <% end %>
-    <% if alert = flash[:alert] %>
-      <div class="mb-6 px-4 py-3 bg-rose-950 border border-rose-700 text-rose-400 text-sm rounded-lg text-center tracking-wide">
-        <%= alert %>
-      </div>
-    <% end %>
-
     <%= render Pages::PageTitleComponent.new(title: "Cadastro de funcionários") %>
 
     <div class="bg-gray-800 border border-gray-700 rounded-2xl p-8 shadow-2xl">
