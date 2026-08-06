@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Reports::AdminPayrollReport, type: :service do
+RSpec.describe Reports::AdminEmployeesPaymentReport, type: :service do
   let(:employee) { create(:employee) }
   let(:range) { Date.new(2026, 1, 1).beginning_of_day..Date.new(2026, 1, 31).end_of_day }
 
@@ -9,7 +9,7 @@ RSpec.describe Reports::AdminPayrollReport, type: :service do
       create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:00:00")
       create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 09:00:00")
 
-      result = Reports::AdminPayrollReport.new(range: range).call
+      result = Reports::AdminEmployeesPaymentReport.new(range: range).call
 
       expect(result.length).to eq(1)
     end
@@ -24,7 +24,7 @@ RSpec.describe Reports::AdminPayrollReport, type: :service do
       punch2_employee2 = create(:time_punch, employee: employee2, kind: :clock_out, punched_at: "2026-01-01 09:00:00")
 
 
-      result = Reports::AdminPayrollReport.new(range: range).call
+      result = Reports::AdminEmployeesPaymentReport.new(range: range).call
 
       expect(result.map { |r| r[:employee].id }).to include(employee1.id, employee2.id)
     end
@@ -33,13 +33,13 @@ RSpec.describe Reports::AdminPayrollReport, type: :service do
       punch1 = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:00:00")
       punch2 = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 09:00:00")
 
-      result = Reports::AdminPayrollReport.new(range: range).call
+      result = Reports::AdminEmployeesPaymentReport.new(range: range).call
 
       expect(result.first).to include(:employee, :hours, :amount)
     end
 
     it "return array nil when not there are punches in range" do
-      result = Reports::AdminPayrollReport.new(range: range).call
+      result = Reports::AdminEmployeesPaymentReport.new(range: range).call
       expect(result).to eq([])
     end
 
@@ -47,7 +47,7 @@ RSpec.describe Reports::AdminPayrollReport, type: :service do
       punch1 = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2027-01-01 08:00:00")
       punch2 = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2027-01-01 09:00:00")
 
-      result = Reports::AdminPayrollReport.new(range: range).call
+      result = Reports::AdminEmployeesPaymentReport.new(range: range).call
 
       expect(result).to eq([])
     end
@@ -56,7 +56,7 @@ RSpec.describe Reports::AdminPayrollReport, type: :service do
       punch1 = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:00:00")
       punch2 = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 09:00:00")
 
-      result = Reports::AdminPayrollReport.new(range: range).call
+      result = Reports::AdminEmployeesPaymentReport.new(range: range).call
 
       expect(result.map { |r| r[:hours] }).to eq([1.0])
 
