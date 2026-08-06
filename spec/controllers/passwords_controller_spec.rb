@@ -27,7 +27,7 @@ RSpec.describe PasswordsController, type: :controller do
         sign_in admin
         post :create, params: { email_address: "email@errado" }
         expect(response).to redirect_to(new_session_path)
-        expect(flash[:notice]).to eq("Password reset instructions sent (if user with that email address exists).")
+        expect(flash[:notice]).to eq("Instruções para redefinição de senha enviadas (caso exista um usuário com esse endereço de e-mail).")
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe PasswordsController, type: :controller do
         token = admin.password_reset_token
         patch :update, params: { token: token, password: "1234", password_confirmation: "1234" }
         expect(response).to redirect_to(new_session_path)
-        expect(flash[:notice]).to eq("Password has been reset.")
+        expect(flash[:notice]).to eq("Senha foi redefinida com sucesso!")
       end
     end
 
@@ -63,7 +63,7 @@ RSpec.describe PasswordsController, type: :controller do
         token = admin.password_reset_token
         patch :update, params: { token: token, password: "1234", password_confirmation: "12345" }
         expect(response).to redirect_to(edit_password_path)
-        expect(flash[:alert]).to eq("Passwords did not match.")
+        expect(flash[:alert]).to eq("Senha e repetição da senha precisam ser iguais!")
       end
     end
 
@@ -71,7 +71,7 @@ RSpec.describe PasswordsController, type: :controller do
       it "redirects to edit" do
         patch :update, params: { token: "invalid#token", password: "1234", password_confirmation: "1234" }
         expect(response).to redirect_to(new_password_path)
-        expect(flash[:alert]).to eq("Password reset link is invalid or has expired.")
+        expect(flash[:alert]).to eq("Link de redefinição de senha é inválido ou expirou!")
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe PasswordsController, type: :controller do
         token = employee.password_reset_token
         patch :update, params: { token: token, password: "1234", password_confirmation: "1234" }
         expect(response).to redirect_to(new_session_path)
-        expect(flash[:notice]).to eq("Password has been reset.")
+        expect(flash[:notice]).to eq("Senha foi redefinida com sucesso!")
       end
     end
 
@@ -89,7 +89,7 @@ RSpec.describe PasswordsController, type: :controller do
         token = employee.password_reset_token
         patch :update, params: { token: token, password: "1234", password_confirmation: "12345" }
         expect(response).to redirect_to(edit_password_path)
-        expect(flash[:alert]).to eq("Passwords did not match.")
+        expect(flash[:alert]).to eq("Senha e repetição da senha precisam ser iguais!")
       end
     end
 
@@ -97,7 +97,7 @@ RSpec.describe PasswordsController, type: :controller do
       it "redirects to edit" do
         patch :update, params: { token: "invalid#token", password: "1234", password_confirmation: "1234" }
         expect(response).to redirect_to(new_password_path)
-        expect(flash[:alert]).to eq("Password reset link is invalid or has expired.")
+        expect(flash[:alert]).to eq("Link de redefinição de senha é inválido ou expirou!")
       end
     end
   end

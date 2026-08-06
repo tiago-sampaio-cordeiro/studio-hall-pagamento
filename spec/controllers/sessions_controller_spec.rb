@@ -32,7 +32,7 @@ RSpec.describe SessionsController, type: :controller do
       it "redirects to new_session_path" do
         post :create, params: { email_address: "email@errado", password: "password#errado" }
         expect(response).to redirect_to(new_session_path)
-        expect(flash[:alert]).to eq("Try another email address or password.")
+        expect(flash[:alert]).to eq("Email ou senha errados, tente novamente")
       end
     end
   end
