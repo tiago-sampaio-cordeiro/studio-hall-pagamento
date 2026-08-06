@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Register, type: :request do
+RSpec.describe EmployeeRegistrationForm, type: :request do
   let(:admin) { create(:user, :admin) }
   let(:employee) { create(:employee).user }
 
