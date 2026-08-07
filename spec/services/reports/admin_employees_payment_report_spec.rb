@@ -4,7 +4,7 @@ RSpec.describe Reports::AdminEmployeesPaymentReport, type: :service do
   let(:employee) { create(:employee) }
   let(:range) { Date.new(2026, 1, 1).beginning_of_day..Date.new(2026, 1, 31).end_of_day }
 
-  describe "payroll" do
+  describe "payment" do
     it "returns a result for each employee" do
       create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:00:00")
       create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 09:00:00")
