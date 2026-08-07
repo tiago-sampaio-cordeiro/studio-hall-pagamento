@@ -29,7 +29,7 @@ RSpec.describe Reports::AdminEmployeesPaymentReport, type: :service do
       expect(result.first).to include(:employee, :hours, :amount)
     end
 
-    it "calculate hours correctly" do
+    it "calculates hours correctly" do
       employee = create(:employee)
       create_workday(employee: employee, date: "2026-08-05")
 
@@ -39,8 +39,8 @@ RSpec.describe Reports::AdminEmployeesPaymentReport, type: :service do
     end
   end
 
-  describe "desconto e extra para CLT" do
-    it "calcula desconto quando horas trabalhadas < 176h" do
+  describe "discount and extra for CLT" do
+    it "calculates discount when worked hours < 176h" do
       employee_clt = create(:employee, :clt, salary: 3000.0)
 
       # 20 dias × 8h/dia = 160h
@@ -57,7 +57,7 @@ RSpec.describe Reports::AdminEmployeesPaymentReport, type: :service do
       expect(result[:amount]).to eq(2880.0)
     end
 
-    it "calcula extra quando horas trabalhadas > 176h" do
+    it "calculates extra when worked hours > 176h" do
       employee_clt = create(:employee, :clt, salary: 3000.0)
 
       # 23 dias × 8h = 184h + 1 dia extra de 6h (turno único) = 190h
@@ -76,7 +76,7 @@ RSpec.describe Reports::AdminEmployeesPaymentReport, type: :service do
       expect(result[:amount]).to eq(3210.0)
     end
 
-    it "retorna salário integral quando horas = 176h (exato)" do
+    it "returns integral salary when hours = 176h (exact)" do
       employee_clt = create(:employee, :clt, salary: 3000.0)
 
       # 22 dias × 8h = 176h
@@ -93,8 +93,8 @@ RSpec.describe Reports::AdminEmployeesPaymentReport, type: :service do
     end
   end
 
-  describe "pagamento para Freelancer" do
-    it "calcula pagamento como horas * hourly_rate" do
+  describe "payment for Freelancer" do
+    it "calculates payments as hours * hourly_rate" do
       employee_freelancer = create(:employee, :freelancer, hourly_rate: 50.0)
 
       # 20 dias × 8h = 160h
@@ -110,7 +110,7 @@ RSpec.describe Reports::AdminEmployeesPaymentReport, type: :service do
       expect(result[:amount]).to eq(8000.0)
     end
 
-    it "ignora desconto/extra para freelancer" do
+    it "ignores discount/extra for freelancer" do
       employee_freelancer = create(:employee, :freelancer, hourly_rate: 50.0)
 
       # 25 dias × 8h = 200h
