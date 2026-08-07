@@ -25,14 +25,5 @@ module Reports
         amount: PaymentCalculation::Payment.new(employee: employee, worked_hours: hours).call
       }
     end
-
-    # verificar se estes métodos estão sendo usados
-    def calculate_hours(punches)
-      PaymentCalculation::HoursCalculator.new(punches: punches).call
-    end
-
-    def calculate_payment(employee)
-      PaymentCalculation::Payment.new(employee: employee, range: @range).call
-    end
   end
 end

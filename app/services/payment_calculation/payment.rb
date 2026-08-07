@@ -19,7 +19,7 @@ module PaymentCalculation
       if employee.clt?
         calculate_clt_payment
       else
-        calculate_hourly_payment
+        calculate_freelancer_payment
       end
     end
 
@@ -36,7 +36,7 @@ module PaymentCalculation
       end
     end
 
-    def calculate_hourly_payment
+    def calculate_freelancer_payment
       return 0 unless employee.hourly_rate
       worked_hours * employee.hourly_rate
     end
