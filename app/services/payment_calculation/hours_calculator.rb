@@ -1,6 +1,6 @@
 module PaymentCalculation
   class HoursCalculator
-    MAX_SHIFT_SECONDS = 6 * 3600 # 6 horas — acima disso, provável ponto esquecido
+    MAX_SHIFT_SECONDS = 14 * 3600 # 6 horas — acima disso, provável ponto esquecido
 
     def initialize(punches:)
       @punches = punches.sort_by(&:punched_at)
