@@ -1,6 +1,6 @@
 module Reports
   class EmployeeDailyReport
-    MAX_SHIFT_SECONDS = 14 * 3600 # 6 horas — acima disso, provável ponto esquecido
+    MAX_SHIFT_SECONDS = 6 * 3600 # 6 horas — acima disso, provável ponto esquecido
 
     def initialize(employee:, range:)
       @employee = employee
