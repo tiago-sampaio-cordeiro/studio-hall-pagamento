@@ -1,14 +1,53 @@
 <div class="flex flex-col gap-1">
   <%= form.label field, label, class: "font-sans-serif text-yellow-400" %>
-  <%= form.send(input_type, field, autocomplete: "username",
-                placeholder: placeholder,
-                class: "
-        #{size}
-        block
-        shadow-sm rounded-4xl
-        placeholder:text-slate-500 text-white
-        focus:outline-none focus:shadow-blue-100 focus:ring-0 focus:outline-blue-600
-        border border-gray-300
-        px-3 py-2 mt-2", **options
-      ) %>
+
+  <% if input_type == :password_field %>
+    <!-- 1. Adicionado mt-2 no wrapper e removido do input -->
+    <div class="relative w-full mt-2" data-controller="password">
+      <%= form.send(
+            input_type,
+            field,
+            autocomplete: "current-password",
+            placeholder: placeholder,
+            class: "
+              #{size}
+              w-full
+              block
+              shadow-sm rounded-4xl
+              placeholder:text-slate-500 text-white
+              focus:outline-none focus:shadow-blue-100 focus:ring-0 focus:outline-blue-600
+              border border-gray-300
+              px-3 py-2 pr-12
+            ",
+            **options
+          ) %>
+
+      <button
+        type="button"
+        data-action="click->password#toggle"
+        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+        aria-label="Mostrar senha"
+      >
+        👁
+      </button>
+    </div>
+  <% else %>
+    <%= form.send(
+          input_type,
+          field,
+          autocomplete: "username",
+          placeholder: placeholder,
+          class: "
+            #{size}
+            w-full
+            block
+            shadow-sm rounded-4xl
+            placeholder:text-slate-500 text-white
+            focus:outline-none focus:shadow-blue-100 focus:ring-0 focus:outline-blue-600
+            border border-gray-300
+            px-3 py-2 mt-2
+          ",
+          **options
+        ) %>
+  <% end %>
 </div>
