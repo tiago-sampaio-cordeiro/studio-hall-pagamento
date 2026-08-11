@@ -86,3 +86,5 @@ group :test do
   # use gem faker to create random names for tests
   gem "faker", "~> 3.6"
 end
+
+gem "chartkick", "~> 5.2"

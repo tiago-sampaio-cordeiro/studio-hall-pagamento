@@ -1,6 +1,47 @@
-<%# if alert = flash[:alert] %>
-<!--  <div class="mb-6 px-4 py-3 bg-rose-950 border border-rose-700 text-rose-400 text-sm rounded-lg text-center tracking-wide">-->
-    <%#= alert %>
-<!--  </div>-->
-<%# end %>
-<h1 class="text-white">Essa é a tela do admin</h1>
+<div class="max-w-5xl mx-auto px-4">
+  <%= render Pages::PageTitleComponent.new(title: "Dashboard") %>
+
+  <%# KPI: total da folha do mês %>
+  <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 mb-8">
+    <p class="text-xs font-medium text-gray-400 uppercase tracking-widest mb-2">
+      Total da folha — <%= I18n.l(Date.current, format: "%B/%Y") %>
+    </p>
+    <p class="text-3xl font-bold text-emerald-400">
+      <%= number_to_currency(@total_payroll, unit: "R$", separator: ",", delimiter: ".") %>
+    </p>
+    <p class="text-sm text-gray-500 mt-1">
+      <%= pluralize(@results.count, "funcionário") %> no período
+    </p>
+  </div>
+
+  <% if @results.any? %>
+    <%# Gráfico: pagamento por funcionário %>
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 mb-8">
+      <h2 class="text-white text-lg font-semibold mb-4">Pagamento por funcionário</h2>
+      <%= column_chart @results.map { |r| ["#{r[:employee].user.first_name} #{r[:employee].user.last_name}", r[:amount]] },
+                       colors: ["#10b981"],
+                       suffix: " R$",
+                       library: { legend: { display: false } } %>
+    </div>
+
+    <%# Gráfico: horas trabalhadas por funcionário, colorido pela meta de 176h %>
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 mb-8">
+      <h2 class="text-white text-lg font-semibold mb-4">Horas trabalhadas por funcionário</h2>
+      <%= column_chart @hours_chart_series, suffix: "h" %>
+    </div>
+
+    <%# Gráfico: composição do time por tipo de contrato %>
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 mb-8">
+      <h2 class="text-white text-lg font-semibold mb-4">Composição de funcionarios da empresa</h2>
+      <% if @contract_type_counts.values.sum.zero? %>
+        <p class="text-gray-400 text-center">Nenhum funcionário cadastrado ainda.</p>
+      <% else %>
+        <%= pie_chart @contract_type_counts, colors: ["#3b82f6", "#f59e0b"] %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 text-center text-gray-400">
+      Nenhum ponto registrado neste mês ainda.
+    </div>
+  <% end %>
+</div>
