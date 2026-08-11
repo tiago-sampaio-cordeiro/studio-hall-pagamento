@@ -22,12 +22,12 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.smtp_settings = {
     address: "smtp.mailgun.org",
-    port: 587,
+    port: 2525,
     authentication: :plain,
     user_name: ENV["MAILGUN_USER"],
     password: ENV["MAILGUN_PASSWORD"]
   }
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = { host: "68.183.24.135", port: 3000 }
   config.action_mailer.default_options = { from: "postmaster@sandbox46d181454f6945faa21b384cc20bd621.mailgun.org" }
 
   # Enable server timing.
@@ -56,7 +56,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "192.168.3.7", port: 3000 }
+  config.action_mailer.default_url_options = { host: "68.183.24.135", port: 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
