@@ -14,7 +14,7 @@ class Employees::TimePunchesController < ApplicationController
         punched_at: DateTime.current).call
       redirect_to employees_time_punches_path, notice: "Ponto registrado com sucesso!"
     else
-      flash.now[:alert] = "Aguarde 15 minutos!"
+      flash.now[:alert] = "Aguarde 5 minutos!"
       render :index, status: :unprocessable_entity
     end
   end
@@ -32,6 +32,6 @@ class Employees::TimePunchesController < ApplicationController
   def can_register_punch?
     last_punch = Current.user.employee.time_punches.order(:punched_at).last
     return true if last_punch.nil? || last_punch.clock_out?
-    last_punch.punched_at + 15.minutes <= Time.current
+    last_punch.punched_at + 5.minutes <= Time.current
   end
 end

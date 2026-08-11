@@ -1,1 +1,50 @@
-<h1 class="text-white">Essa é a tela do employee</h1>
+<div class="max-w-5xl mx-auto px-4">
+  <%= render Pages::PageTitleComponent.new(title: "Meu Dashboard") %>
+
+  <%# KPIs: horas trabalhadas e pagamento estimado %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6">
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-widest mb-2">
+        Horas trabalhadas — <%= I18n.l(Date.current, format: "%B/%Y") %>
+      </p>
+      <p class="text-3xl font-bold text-blue-400">
+        <%= format_hours(@total_hours) %>
+      </p>
+      <p class="text-sm text-gray-500 mt-1">de <%= @goal_hours %>:00:00 (meta)</p>
+    </div>
+
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6">
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-widest mb-2">
+        Pagamento estimado
+      </p>
+      <p class="text-3xl font-bold text-emerald-400">
+        <%= number_to_currency(@estimated_payment, unit: "R$", separator: ",", delimiter: ".") %>
+      </p>
+      <p class="text-sm text-gray-500 mt-1">Baseado nas horas já registradas</p>
+    </div>
+  </div>
+
+  <%# Barra de progresso em relação à meta de 176h %>
+  <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 mb-8">
+    <div class="flex justify-between items-center mb-2">
+      <h2 class="text-white text-sm font-semibold">Progresso da meta mensal</h2>
+      <span class="text-sm text-gray-400"><%= @goal_percent.round(1) %>%</span>
+    </div>
+    <div class="w-full bg-gray-700 rounded-full h-4 overflow-hidden">
+      <div class="bg-emerald-500 h-4 rounded-full transition-all duration-500"
+           style="width: <%= @goal_percent %>%"></div>
+    </div>
+  </div>
+
+  <% if @daily_hours_chart.any? %>
+    <%# Gráfico: horas trabalhadas por dia %>
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 mb-8">
+      <h2 class="text-white text-lg font-semibold mb-4">Horas trabalhadas por dia</h2>
+      <%= column_chart @daily_hours_chart, colors: ["#3b82f6"], suffix: "h" %>
+    </div>
+  <% else %>
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 text-center text-gray-400">
+      Nenhum ponto registrado neste mês ainda.
+    </div>
+  <% end %>
+</div>
