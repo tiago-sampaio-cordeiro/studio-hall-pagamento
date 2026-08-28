@@ -2,7 +2,7 @@
 service: studio_hall_pagamento
 
 # Name of the container image (use your-user/app-name on external registries).
-image: studio_hall_pagamento
+image: tiagosampaio93cordeiro/studio-hall-pagamento
 
 # Deploy to these servers.
 servers:
@@ -20,26 +20,28 @@ servers:
 #
 # Don't use this when deploying to multiple web servers (then you have to terminate SSL at your load balancer).
 #
-# proxy:
-#   ssl: true
-#   host: app.example.com
+proxy:
+  ssl: true
+  host: studio-hall.com
 
 # Where you keep your container images.
 registry:
   # Alternatives: hub.docker.com / registry.digitalocean.com / ghcr.io / ...
-  server: localhost:5555
+#  server: localhost:5555
 
   # Needed for authenticated registries.
-  # username: your-user
+  username: tiagosampaio93cordeiro
 
   # Always use an access token rather than real password when possible.
-  # password:
-  #   - KAMAL_REGISTRY_PASSWORD
+  password:
+    - KAMAL_REGISTRY_PASSWORD
 
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:
   secret:
     - RAILS_MASTER_KEY
+    - MAILGUN_USER
+    - MAILGUN_PASSWORD
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
@@ -96,25 +98,17 @@ builder:
 #   user: app
 
 # Use accessory services (secrets come from .kamal/secrets).
-# accessories:
-#   db:
-#     image: mysql:8.0
-#     host: 192.168.0.2
-#     # Change to 3306 to expose port to the world instead of just local network.
-#     port: "127.0.0.1:3306:3306"
-#     env:
-#       clear:
-#         MYSQL_ROOT_HOST: '%'
-#       secret:
-#         - MYSQL_ROOT_PASSWORD
-#     files:
-#       - config/mysql/production.cnf:/etc/mysql/my.cnf
-#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-#     directories:
-#       - data:/var/lib/mysql
-#   redis:
-#     image: valkey/valkey:8
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
+accessories:
+  db:
+    image: postgres:17
+    host: 1.2.3.4
+
+    env:
+      clear:
+        POSTGRES_DB: studio_hall_pagamento_production
+        POSTGRES_USER: studio_hall_pagamento
+      secret:
+        - POSTGRES_PASSWORD
+
+    directories:
+      - data:/var/lib/postgresql/data
