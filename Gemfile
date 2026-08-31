@@ -6,6 +6,8 @@ gem "rails", "~> 8.1.1"
 gem "propshaft"
 # Use postgreSQL as the database for Active Record
 gem "pg"
+# Use SQLite for Solid Cache, Solid Queue, and Solid Cable in production
+gem "sqlite3"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]

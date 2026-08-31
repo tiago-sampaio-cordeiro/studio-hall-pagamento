@@ -14,8 +14,27 @@ test:
   database: studio_hall_pagamento_test
 
 production:
-  <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
-  database: studio_hall_pagamento_production
-  username: studio_hall_pagamento
-  password: <%= ENV["DATABASE_PASSWORD"] %>
+  primary:
+    <<: *default
+    database: studio_hall_pagamento_production
+    host: <%= ENV.fetch("DB_HOST", "studio_hall_pagamento-db") %>
+    username: studio_hall_pagamento
+    password: <%= ENV.fetch("DATABASE_PASSWORD", nil) %>
+  cache:
+    adapter: sqlite3
+    database: storage/production_cache.sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+    migrations_paths: db/cache_migrate
+  queue:
+    adapter: sqlite3
+    database: storage/production_queue.sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+    migrations_paths: db/queue_migrate
+  cable:
+    adapter: sqlite3
+    database: storage/production_cable.sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+    migrations_paths: db/cable_migrate
