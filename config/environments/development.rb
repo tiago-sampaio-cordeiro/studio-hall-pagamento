@@ -6,11 +6,29 @@ Rails.application.configure do
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 
+  # config.action_mailer.delivery_method = :letter_opener
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.default_url_options = { host: "192.168.3.7", port: 3000 }
+
   # Do not eager load code on boot.
   config.eager_load = false
 
   # Show full error reports.
   config.consider_all_requests_local = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching = false
+  config.action_mailer.smtp_settings = {
+    address: "smtp.mailgun.org",
+    port: 2525,
+    authentication: :plain,
+    user_name: ENV["MAILGUN_USER"],
+    password: ENV["MAILGUN_PASSWORD"]
+  }
+  config.action_mailer.default_url_options = { host: "68.183.24.135", port: 3000 }
+  config.action_mailer.default_options = { from: "postmaster@sandbox46d181454f6945faa21b384cc20bd621.mailgun.org" }
 
   # Enable server timing.
   config.server_timing = true
@@ -38,7 +56,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = { host: "68.183.24.135", port: 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

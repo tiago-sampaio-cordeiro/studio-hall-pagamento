@@ -23,9 +23,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-slate-700">
-  <main>
+  <body class="bg-[#030712] pb-24">
+    <% if authenticated? && request.path != root_path %>
+      <%= render Navbar::NavbarComponent.new %>
+    <% end %>
+    <main class="mt-32">
+      <%= render "shared/flash" %>
       <%= yield %>
     </main>
+    <%= render Footer::FooterComponent.new %>
   </body>
 </html>

@@ -9,12 +9,16 @@ class TimePunch < ApplicationRecord
   private
 
   def valid_sequence
+    return unless employee
     last_punch = employee.time_punches
                          .where.not(id: id)
                          .order(:punched_at)
                          .last
 
-    return unless last_punch
+    if last_punch.nil?
+      errors.add(:kind, "primeiro registro deve ser clock_in") if clock_out?
+      return
+    end
 
     if last_punch.kind == kind
       errors.add(:kind, "sequência inválida")

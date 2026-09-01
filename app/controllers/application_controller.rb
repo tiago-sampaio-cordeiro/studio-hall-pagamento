@@ -9,6 +9,28 @@ class ApplicationController < ActionController::Base
   private
 
   def after_authentication_url
-    session.delete(:return_to_after_authenticating) || root_url
+    session.delete(:return_to_after_authenticating) || default_dashboard_path
+  end
+
+  def default_dashboard_path
+    if Current.user.admin?
+      admin_root_path
+    else
+      employees_root_path
+    end
+  end
+
+  def require_admin
+    unless Current.user&.admin?
+      flash[:alert] = "Acesso negado!"
+      redirect_to employees_root_path
+    end
+  end
+
+  def require_employee
+    unless Current.user&.employee?
+      flash[:alert] = "Acesso negado!"
+      redirect_to admin_root_path
+    end
   end
 end

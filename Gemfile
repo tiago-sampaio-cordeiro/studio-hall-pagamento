@@ -6,6 +6,8 @@ gem "rails", "~> 8.1.1"
 gem "propshaft"
 # Use postgreSQL as the database for Active Record
 gem "pg"
+# Use SQLite for Solid Cache, Solid Queue, and Solid Cable in production
+gem "sqlite3"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -17,20 +19,21 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 # use gem view_component to components
-gem 'view_component', '~> 4.4'
+gem "view_component", "~> 4.4"
 # use gem tailwindcss to frontend
-gem 'tailwindcss-rails', '~> 4.4'
-gem 'tailwindcss-ruby', '~> 4.1', '>= 4.1.18'
+gem "tailwindcss-rails", "~> 4.4"
+gem "tailwindcss-ruby", "~> 4.1", ">= 4.1.18"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 # use foreman to run multiples process(Rails + tailwind watcher)
-gem 'foreman', '~> 0.90.0'
-# use gem faker to create random names for tests
-gem 'faker', '~> 3.6'
+gem "foreman", "~> 0.90.0"
 # for debugg
-gem 'pry-rails', '~> 0.3.11'
+gem "pry-rails", "~> 0.3.11"
+# linguagem
+gem "rails-i18n"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
@@ -66,10 +69,24 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  # gems usadas para emails
+  gem "dotenv-rails", "~> 3.2"
+  gem "letter_opener", "~> 1.10"
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  gem "rspec-rails", "~> 8.0", ">= 8.0.3"
+
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
+
+  gem "factory_bot_rails", "~> 6.5", ">= 6.5.1"
+
+  # use gem faker to create random names for tests
+  gem "faker", "~> 3.6"
 end
+
+gem "chartkick", "~> 5.2"

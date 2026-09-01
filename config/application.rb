@@ -16,6 +16,8 @@ module StudioHallPagamento
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    config.autoload_paths << Rails.root.join("app/queries")
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -23,6 +25,7 @@ module StudioHallPagamento
     #
     config.time_zone = "America/Sao_Paulo"
     config.active_record.default_timezone = :local
+    config.i18n.default_locale = :"pt-BR"
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

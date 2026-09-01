@@ -11,6 +11,6 @@ class CreatePayrolls < ActiveRecord::Migration[8.1]
       t.boolean :locked, null: false, default: false
       t.timestamps
     end
-    add_index :payrolls, [:employee_id, :reference_month], unique: true
+    add_index :payrolls, [ :employee_id, :reference_month ], unique: true
   end
 end

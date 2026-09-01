@@ -1,0 +1,21 @@
+<div class="w-full flex items-start justify-center">
+  <div>
+
+    <%= render Pages::PageTitleComponent.new(title: "Atualização de dados") %>
+
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-8 shadow-2xl">
+      <div class="mb-8">
+        <h1 class="text-2xl font-bold text-white">Editar Funcionário</h1>
+      </div>
+
+      <%= render "shared/form_register_employee",
+                 form_url: admin_employee_path(@form.user_id),
+                 form_method: :patch,
+                 form: @form,
+                 submit_label: "Salvar",
+                 password_label: "Nova Senha",
+                 password_placeholder: "Deixe em branco para manter a atual" %>
+    </div>
+
+  </div>
+</div>

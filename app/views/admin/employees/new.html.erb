@@ -1,0 +1,21 @@
+<div class="w-full flex items-start justify-center">
+  <div>
+
+    <%= render Pages::PageTitleComponent.new(title: "Cadastro de funcionários") %>
+
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-8 shadow-2xl">
+      <div class="mb-8">
+        <h1 class="text-2xl font-bold text-white">Cadastrar funcionario</h1>
+      </div>
+
+      <%= render "shared/form_register_employee",
+                 form_url: admin_employees_path,
+                 form_method: :post,
+                 form: @form,
+                 submit_label: "Cadastrar",
+                 password_label: "Senha",
+                 password_placeholder: "••••••••" %>
+    </div>
+
+  </div>
+</div>

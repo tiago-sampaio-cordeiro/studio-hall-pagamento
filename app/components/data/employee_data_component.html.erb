@@ -1,0 +1,82 @@
+<div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-gray-700 transition-colors duration-200">
+
+  <div class="flex items-center gap-4 mb-5">
+    <div class="w-11 h-11 rounded-full bg-emerald-950 border border-emerald-800 flex items-center justify-center text-emerald-400 font-semibold text-sm flex-shrink-0">
+      <%= user.first_name[0].upcase %><%= user.last_name[0].upcase %>
+    </div>
+    <div class="min-w-0">
+      <p class="text-white font-medium text-sm truncate"><%= user.first_name %> <%= user.last_name %></p>
+      <p class="text-gray-500 text-xs truncate"><%= user.email_address %></p>
+    </div>
+  </div>
+
+  <div class="space-y-2.5 mb-5">
+
+    <div class="flex items-center justify-between">
+      <span class="text-gray-500 text-xs">Perfil</span>
+      <% if user.admin? %>
+        <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-violet-950 text-violet-400 border border-violet-800">Admin</span>
+      <% else %>
+        <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-gray-800 text-gray-400 border border-gray-700">Funcionário</span>
+      <% end %>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <span class="text-gray-500 text-xs">Tipo de contrato</span>
+      <% if user.employee&.clt? %>
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-blue-950 text-blue-400 border border-blue-800">CLT</span>
+      <% else user.employee&.freelancer? %>
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-amber-950 text-amber-400 border border-amber-800">Freelancer</span>
+      <% end %>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <span class="text-gray-500 text-xs">
+        <%= user.employee&.clt? ? "Salário" : "Valor/hora" %>
+      </span>
+      <span class="text-white text-xs font-medium">
+        <% if user.employee&.clt? %>
+          <%= number_to_currency(user.employee&.salary, unit: "R$") %>
+        <% else %>
+          <%= number_to_currency(user.employee&.hourly_rate, unit: "R$") %>
+        <% end %>      </span>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <span class="text-gray-500 text-xs">Status</span>
+      <% if user.active? %>
+        <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">Ativo</span>
+      <% else %>
+        <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-rose-950 text-rose-400 border border-rose-800">Inativo</span>
+      <% end %>
+    </div>
+
+  </div>
+
+  <%# Botões %>
+  <div class="flex gap-2 pt-4 border-t border-gray-800">
+    <%= link_to edit_admin_employee_path(user),
+                class: "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium
+                      border border-gray-700 text-gray-400 hover:border-gray-500 hover:text-gray-300
+                      transition-all duration-200" do %>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+      </svg>
+      Editar
+    <% end %>
+
+    <div class="flex-1">
+      <%= link_to admin_employee_path(user),
+                  class: "w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium
+                border border-blue-900 text-blue-400 hover:bg-blue-950 hover:border-blue-700
+                transition-all duration-200" do %>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+        </svg>
+        Ver perfil
+      <% end %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,199 @@
+<%= form_with model: form, url: form_url, method: form_method do |f| %>
+  <% if form.errors.any? %>
+    <div class="mb-6 px-4 py-3 bg-rose-950 border border-rose-700 text-rose-400 text-sm rounded-lg">
+      <p class="font-semibold mb-2">Corrija os seguintes erros:</p>
+      <ul class="list-disc list-inside space-y-1">
+        <% form.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%# SEÇÃO: Dados Pessoais %>
+  <div class="mb-4">
+    <p class="text-xs font-medium text-emerald-500 uppercase tracking-widest mb-4">Dados Pessoais</p>
+    <div class="grid sm:grid-col md:grid-cols-3 gap-4">
+      <div>
+        <%= f.label :first_name, "Nome do funcionário", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+        <%= f.text_field :first_name, placeholder: "João",
+                         class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+      </div>
+      <div>
+        <%= f.label :last_name, "Sobrenome", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+        <%= f.text_field :last_name, placeholder: "Silva",
+                         class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+      </div>
+      <div>
+        <%= f.label :birth_date, "Data de Nascimento", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+        <%= f.date_field :birth_date,
+                         class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors duration-200 [color-scheme:dark]" %>
+      </div>
+    </div>
+    <div class="grid sm:grid-col md:grid-cols-3 gap-4 mt-4">
+      <div>
+        <%= f.label :rg, "rg", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+        <%= f.text_field :rg, placeholder: "123456789-0",
+                         class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+      </div>
+      <div>
+        <%= f.label :cpf, "cpf", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+        <%= f.text_field :cpf, placeholder: "Ex: 000000000",
+                         class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+      </div>
+      <div>
+        <%= f.label :email_address, "E-mail", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+        <%= f.email_field :email_address, placeholder: "joao@email.com",
+                          class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+      </div>
+    </div>
+    <%# Telefone %>
+    <div class="grid sm:grid-col grid-cols-2 gap-4 mt-4">
+      <div>
+        <%= f.label :phone_number, "Telefone", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+        <%= f.text_field :phone_number, placeholder: "telefone do funcionario",
+                         class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors duration-200 [color-scheme:dark]" %>
+      </div>
+      <div>
+        <%= f.label :gender, "Gênero", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+        <%= f.select :gender,
+                     [["Masculino", "masculino"], ["Feminino", "feminino"]],
+                     { prompt: "Selecione" },
+                     class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors duration-200 cursor-pointer" %>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-gray-700 my-6"></div>
+  <%# SEÇÃO: Tipo de Contrato %>
+  <div class="mb-4">
+    <p class="text-xs font-medium text-emerald-500 uppercase tracking-widest mb-4">Tipo de Contrato</p>
+    <div class="grid grid-cols-2 gap-3 mb-5">
+      <label class="flex items-center gap-3 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 cursor-pointer hover:border-emerald-500 transition-colors duration-200 has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-950"
+             id="label-clt">
+        <%= f.radio_button :contract_type, "clt", onchange: "toggleContractFields('clt')", checked: form.clt?,
+                           class: "w-4 h-4 text-emerald-500 border-gray-500 bg-gray-700 focus:outline-none focus:ring-0" %>
+        <div>
+          <span class="text-sm font-medium text-gray-300">CLT</span>
+          <p class="text-xs text-gray-500">Regime CLT</p>
+        </div>
+      </label>
+      <label class="flex items-center gap-3 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 cursor-pointer hover:border-emerald-500 transition-colors duration-200 has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-950"
+             id="label-freelancer">
+        <%= f.radio_button :contract_type, "freelancer", onchange: "toggleContractFields('freelancer')", checked: form.freelancer?,
+                           class: "w-4 h-4 text-emerald-500 border-gray-500 bg-gray-700 focus:outline-none focus:ring-0" %>
+        <div>
+          <span class="text-sm font-medium text-gray-300">Freelancer</span>
+          <p class="text-xs text-gray-500">Autônomo / PJ</p>
+        </div>
+      </label>
+    </div>
+    <%# Campos CLT %>
+    <div id="clt-fields" class="hidden space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <%= f.label :admission_date, "Data de Admissão", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+          <%= f.date_field :admission_date,
+                           class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 transition-colors duration-200 [color-scheme:dark]" %>
+        </div>
+        <div>
+          <%= f.label :position, "Cargo", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+          <%= f.text_field :position, placeholder: "placeholder???",
+                           class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+        </div>
+      </div>
+      <div class="grid gap-4">
+        <div>
+          <%= f.label :salary, "Salário Base (R$)", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></span>
+            <%= f.number_field :salary, data: { field: "salary" }, placeholder: "R$ 0,00", step: "0.01", min: "0",
+                               class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg pl-4 pr-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%# Campos Freelancer %>
+    <div id="freelancer-fields" class="hidden space-y-4">
+      <div class="grid gap-4">
+        <div>
+          <%= f.label :hourly_rate, "Valor por Hora (R$)", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">R$</span>
+            <%= f.number_field :hourly_rate, data: { field: "hourly_rate" }, placeholder: "0,00", step: "0.01", min: "0",
+                               class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg pl-10 pr-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-gray-700 my-6"></div>
+  <div class="border-t border-gray-700 my-6"></div>
+  <%# SEÇÃO: Acesso ao Sistema %>
+  <div class="mb-4">
+    <p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">Perfil</p>
+    <div class="space-y-4">
+      <div>
+        <div class="grid grid-cols-2 gap-3">
+          <label class="flex items-center gap-3 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 cursor-pointer hover:border-emerald-500 transition-colors duration-200 has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-950">
+            <%= f.radio_button :role, "employee", checked: form.employee_role?, class: "w-4 h-4 text-emerald-500 border-gray-500 bg-gray-700 focus:outline-none focus:ring-0" %>
+            <div>
+              <span class="text-sm font-medium text-gray-300">Funcionário</span>
+              <p class="text-xs text-gray-500">Acesso básico</p>
+            </div>
+          </label>
+          <label class="flex items-center gap-3 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 cursor-pointer hover:border-emerald-500 transition-colors duration-200 has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-950">
+            <%= f.radio_button :role, "admin", checked: form.admin_role?, class: "w-4 h-4 text-emerald-500 border-gray-500 bg-gray-700 focus:outline-none focus:ring-0" %>
+            <div>
+              <span class="text-sm font-medium text-gray-300">Admin</span>
+              <p class="text-xs text-gray-500">Acesso total</p>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <%= f.label :password, password_label, class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+          <%= f.password_field :password, placeholder: password_placeholder,
+                               class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+        </div>
+        <div>
+          <%= f.label :password_confirmation, "Confirmar Senha", class: "block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2" %>
+          <%= f.password_field :password_confirmation, placeholder: "••••••••",
+                               class: "w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-colors duration-200" %>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 py-1">
+        <%= f.check_box :active, class: "w-4 h-4 rounded border-gray-600 bg-gray-700 text-emerald-500 focus:outline-none focus:ring-0 cursor-pointer" %>
+        <%= f.label :active, class: "cursor-pointer" do %>
+          <span class="text-sm font-medium text-gray-300">Funcionário ativo</span>
+          <p class="text-xs text-gray-500 mt-0.5">Funcionários inativos não terão acesso ao sistema</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%# Botões %>
+  <div class="flex gap-3 mt-8">
+    <%= link_to "Cancelar", admin_employees_path,
+                class: "flex-1 py-3 rounded-xl text-sm font-semibold text-center border border-gray-600 text-gray-400 hover:border-gray-500 hover:text-gray-300 transition-all duration-200" %>
+    <%= f.submit submit_label,
+                 class: "flex-1 py-3 rounded-xl text-sm font-semibold bg-emerald-500 hover:bg-emerald-400 text-gray-950 transition-all duration-200 cursor-pointer shadow-lg shadow-emerald-500/20" %>
+  </div>
+<% end %>
+<script>
+    function toggleContractFields(type) {
+        const clt = document.getElementById('clt-fields');
+        const freelancer = document.getElementById('freelancer-fields');
+
+        if (type === 'clt') {
+            clt.classList.remove('hidden');
+            freelancer.classList.add('hidden');
+        } else {
+            freelancer.classList.remove('hidden');
+            clt.classList.add('hidden');
+        }
+    }
+
+    document.addEventListener('turbo:load', function () {
+        const contractType = "<%= form.contract_type %>";
+        if (contractType) toggleContractFields(contractType);
+    });
+</script>

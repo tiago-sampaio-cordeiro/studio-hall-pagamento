@@ -3,6 +3,7 @@ module Authentication
 
   included do
     before_action :require_authentication
+    before_action :require_active_user
     helper_method :authenticated?
   end
 
@@ -13,40 +14,46 @@ module Authentication
   end
 
   private
-    def authenticated?
-      resume_session
-    end
 
-    def require_authentication
-      resume_session || request_authentication
-    end
+  def authenticated?
+    resume_session
+  end
 
-    def resume_session
-      Current.session ||= find_session_by_cookie
-    end
+  def require_authentication
+    resume_session || request_authentication
+  end
 
-    def find_session_by_cookie
-      Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
-    end
+  def require_active_user
+    return unless Current.user
+    redirect_to new_session_path, alert: "Sua conta está inativa." unless Current.user.active?
+  end
 
-    def request_authentication
-      session[:return_to_after_authenticating] = request.url
-      redirect_to new_session_path
-    end
+  def resume_session
+    Current.session ||= find_session_by_cookie
+  end
 
-    def after_authentication_url
-      session.delete(:return_to_after_authenticating) || root_path
-    end
+  def find_session_by_cookie
+    Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
+  end
 
-    def start_new_session_for(user)
-      user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
-        Current.session = session
-        cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
-      end
-    end
+  def request_authentication
+    session[:return_to_after_authenticating] = request.url
+    redirect_to new_session_path
+  end
 
-    def terminate_session
-      Current.session.destroy
-      cookies.delete(:session_id)
+  def after_authentication_url
+    session.delete(:return_to_after_authenticating) || root_path
+  end
+
+  def start_new_session_for(user)
+    user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
+      Current.session = session
+      cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
     end
+  end
+
+  def terminate_session
+    Current.session.destroy
+    cookies.delete(:session_id)
+  end
 end

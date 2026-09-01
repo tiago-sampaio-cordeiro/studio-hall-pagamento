@@ -1,0 +1,17 @@
+<div class="min-h-screen p-6">
+  <div class="max-w-5xl mx-auto">
+
+    <%= render Pages::PageTitleComponent.new(title: "Funcionários") %>
+
+    <div class="flex items-center justify-between mb-8">
+      <%= link_to "Novo Funcionário", new_admin_employee_path,
+                  class: "bg-emerald-500 hover:bg-emerald-400 text-gray-950 text-sm font-semibold
+                    px-6 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/20" %>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% @users.each do |user| %>
+        <%= render Data::EmployeeDataComponent.new(user: user) %>
+    <% end %>
+  </div>
+</div>
