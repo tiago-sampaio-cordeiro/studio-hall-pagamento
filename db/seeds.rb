@@ -10,8 +10,8 @@
 
 # db/seeds.rb
 
-admin_email = ENV.fetch("ADMIN_EMAIL")
-admin_password = ENV.fetch("ADMIN_PASSWORD")
+admin_email = "admin@studiohall.com"
+admin_password = "admin123"
 
 admin = User.find_or_initialize_by(email_address: admin_email)
 
