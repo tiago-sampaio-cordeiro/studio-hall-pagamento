@@ -16,6 +16,7 @@ module Employees
       @goal_percent = [ (@total_hours / @goal_hours.to_f * 100), 100 ].min
 
       @daily_hours_chart = build_daily_hours_chart
+      @show_estimated_payment = Current.user.email_address == "sampaio415@gmail.com"
     end
 
     private
