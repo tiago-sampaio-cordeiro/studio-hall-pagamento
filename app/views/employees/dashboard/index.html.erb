@@ -13,15 +13,17 @@
       <p class="text-sm text-gray-500 mt-1">de <%= @goal_hours %>:00:00 (meta)</p>
     </div>
 
-    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6">
-      <p class="text-xs font-medium text-gray-400 uppercase tracking-widest mb-2">
-        Pagamento estimado
-      </p>
-      <p class="text-3xl font-bold text-emerald-400">
-        <%= number_to_currency(@estimated_payment, unit: "R$", separator: ",", delimiter: ".") %>
-      </p>
-      <p class="text-sm text-gray-500 mt-1">Baseado nas horas já registradas</p>
-    </div>
+    <% if @show_estimated_payment %>
+      <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6">
+        <p class="text-xs font-medium text-gray-400 uppercase tracking-widest mb-2">
+          Pagamento estimado
+        </p>
+        <p class="text-3xl font-bold text-emerald-400">
+          <%= number_to_currency(@estimated_payment, unit: "R$", separator: ",", delimiter: ".") %>
+        </p>
+        <p class="text-sm text-gray-500 mt-1">Baseado nas horas já registradas</p>
+      </div>
+    <% end %>
   </div>
 
   <%# Barra de progresso em relação à meta de 176h %>
