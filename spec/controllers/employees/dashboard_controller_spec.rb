@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Employees::DashboardController, type: :controller do
   let(:admin) { create(:user, :admin) }
-  let(:employee) { create(:user) }
+  let(:employee) { create(:employee).user }
 
   describe "GET#index" do
     context "when user is employee" do
