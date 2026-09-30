@@ -23,7 +23,7 @@ RSpec.describe EmployeeRegistrationForm, type: :request do
         phone_number: Faker::PhoneNumber.cell_phone,
         position: Faker::Job.position,
         rg: Faker::Number.decimal_part(digits: 10),
-        cpf: Faker::IdNumber.brazilian_citizen_number,
+        cpf: Faker::IdNumber.brazilian_citizen_number
       }
     }
   end
@@ -39,7 +39,6 @@ RSpec.describe EmployeeRegistrationForm, type: :request do
         expect {
           post admin_employees_path, params: default_params
         }.to change(Employee, :count).by(1)
-
       end
     end
   end

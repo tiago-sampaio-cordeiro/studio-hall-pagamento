@@ -118,4 +118,4 @@ class EmployeeRegistrationForm
         salary: salary, position: position, phone_number: phone_number, rg: rg, cpf: cpf
       }.compact_blank
     end
-  end
+end

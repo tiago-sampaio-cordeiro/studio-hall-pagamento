@@ -7,7 +7,7 @@ RSpec.describe PaymentCalculation::HoursCalculator, type: :service do
     it "calcula corretamente um par completo de entrada e saída" do
       clock_in = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:00:00.000")
       clock_out = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 09:00:00.000")
-      punches = [clock_in, clock_out]
+      punches = [ clock_in, clock_out ]
 
       result = PaymentCalculation::HoursCalculator.new(punches: punches).call
 
@@ -18,7 +18,7 @@ RSpec.describe PaymentCalculation::HoursCalculator, type: :service do
       clock_in1 = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:00:00.000")
       clock_out = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 09:00:00.000")
       clock_in2 = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 10:00:00.000")
-      punches = [clock_in1, clock_out, clock_in2]
+      punches = [ clock_in1, clock_out, clock_in2 ]
 
       result = PaymentCalculation::HoursCalculator.new(punches: punches).call
 
@@ -34,7 +34,7 @@ RSpec.describe PaymentCalculation::HoursCalculator, type: :service do
     it "calcula corretamente quando o turno atravessa a meia-noite" do
       clock_in = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 23:30:00.000")
       clock_out = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-02 00:30:00.000")
-      punches = [clock_in, clock_out]
+      punches = [ clock_in, clock_out ]
 
       result = PaymentCalculation::HoursCalculator.new(punches: punches).call
 
@@ -46,7 +46,7 @@ RSpec.describe PaymentCalculation::HoursCalculator, type: :service do
       clock_in2 = build(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:10:00.000")
       clock_in3 = build(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:20:00.000")
       clock_out = build(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 09:00:00.000")
-      punches = [clock_in1, clock_in2, clock_in3, clock_out]
+      punches = [ clock_in1, clock_in2, clock_in3, clock_out ]
 
       result = PaymentCalculation::HoursCalculator.new(punches: punches).call
 
@@ -58,7 +58,7 @@ RSpec.describe PaymentCalculation::HoursCalculator, type: :service do
       clock_out = build(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 09:00:00.000")
       clock_in = build(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 10:00:00.000")
       clock_out2 = build(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 11:00:00.000")
-      punches = [clock_out, clock_in, clock_out2]
+      punches = [ clock_out, clock_in, clock_out2 ]
 
       result = PaymentCalculation::HoursCalculator.new(punches: punches).call
 
@@ -69,7 +69,7 @@ RSpec.describe PaymentCalculation::HoursCalculator, type: :service do
     it "descarta pares com duração acima do limite máximo de turno (provável ponto esquecido)" do
       clock_in = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:00:00.000")
       clock_out = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 23:00:00.000") # 15h
-      punches = [clock_in, clock_out]
+      punches = [ clock_in, clock_out ]
 
       result = PaymentCalculation::HoursCalculator.new(punches: punches).call
 
@@ -79,7 +79,7 @@ RSpec.describe PaymentCalculation::HoursCalculator, type: :service do
     it "conta normalmente um turno dentro do limite máximo (6h)" do
       clock_in = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 08:00:00.000")
       clock_out = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 13:00:00.000") # 5h
-      punches = [clock_in, clock_out]
+      punches = [ clock_in, clock_out ]
 
       result = PaymentCalculation::HoursCalculator.new(punches: punches).call
 
@@ -91,7 +91,7 @@ RSpec.describe PaymentCalculation::HoursCalculator, type: :service do
       clock_out1 = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 12:00:00.000")
       clock_in2 = create(:time_punch, employee: employee, kind: :clock_in, punched_at: "2026-01-01 13:00:00.000")
       clock_out2 = create(:time_punch, employee: employee, kind: :clock_out, punched_at: "2026-01-01 17:00:00.000")
-      punches = [clock_in1, clock_out1, clock_in2, clock_out2]
+      punches = [ clock_in1, clock_out1, clock_in2, clock_out2 ]
 
       result = PaymentCalculation::HoursCalculator.new(punches: punches).call
 

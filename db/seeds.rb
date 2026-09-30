@@ -119,4 +119,3 @@ end
 # puts "#{User.count} usuários criados"
 # puts "#{Employee.count} employees criados"
 # puts "#{TimePunch.count} registros de ponto criados"
-

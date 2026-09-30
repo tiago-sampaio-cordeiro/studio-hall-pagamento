@@ -12,16 +12,16 @@ Rails.application.routes.draw do
   namespace :admin do
     root "dashboard#index"
     resources :employees do
-      resources :reports, only: [:index]
+      resources :reports, only: [ :index ]
     end
     resources :employees
-    resources :reports, only: [:index]
+    resources :reports, only: [ :index ]
   end
 
   namespace :employees do
     root "dashboard#index"
     resources :time_punches
-    resources :reports, only: [:index]
+    resources :reports, only: [ :index ]
   end
 
   # resource  :daily_report, only: [:show]

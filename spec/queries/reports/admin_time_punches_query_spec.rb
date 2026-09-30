@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Reports::AdminTimePunchesQuery, type: :query do
   let(:employee) { create(:employee) }
-  let(:range) {Date.new(2026,1,1).beginning_of_day..Date.new(2026,12,31).end_of_day}
+  let(:range) { Date.new(2026, 1, 1).beginning_of_day..Date.new(2026, 12, 31).end_of_day }
 
   describe "range" do
     it "returns only punches inside range" do
@@ -25,7 +25,7 @@ RSpec.describe Reports::AdminTimePunchesQuery, type: :query do
 
       result = Reports::AdminTimePunchesQuery.new(range: range).call
 
-      expect(result.map { |r| r.punched_at}.map {|y| y.year}).not_to include(2027)
+      expect(result.map { |r| r.punched_at }.map { |y| y.year }).not_to include(2027)
     end
 
     it "returns punches sorted by ascendent punched_at" do
@@ -52,7 +52,6 @@ RSpec.describe Reports::AdminTimePunchesQuery, type: :query do
       result = Reports::AdminTimePunchesQuery.new(range: range).call
 
       expect(result.map { |r| r[:employee_id] }).to include(employee1.id, employee2.id)
-
     end
   end
 end

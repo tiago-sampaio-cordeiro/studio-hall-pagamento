@@ -26,8 +26,8 @@ RSpec.describe Reports::EmployeeDailyReport, type: :service do
 
       result = Reports::EmployeeDailyReport.new(employee: employee, range: range).call
 
-      expect(result.first[:entries]).to eq(["08:00:00"])
-      expect(result.first[:exits]).to eq(["09:00:00"])
+      expect(result.first[:entries]).to eq([ "08:00:00" ])
+      expect(result.first[:exits]).to eq([ "09:00:00" ])
     end
 
     it "returns total_hours formatted" do
@@ -40,7 +40,6 @@ RSpec.describe Reports::EmployeeDailyReport, type: :service do
 
       expect(result.first[:total_hours]).to eq("01:00:00")
       # expect(result.first[:total_hours]).to eq(["01:00:00"])
-
     end
 
     it "returns array nil when not there are punches" do
@@ -57,9 +56,9 @@ RSpec.describe Reports::EmployeeDailyReport, type: :service do
       result = Reports::EmployeeDailyReport.new(employee: employee, range: range).call
 
       expect(result.first[:date]).to eq(Date.new(2026, 1, 1))
-      expect(result.first[:entries]).to eq(["08:00:00"])
+      expect(result.first[:entries]).to eq([ "08:00:00" ])
       expect(result.last[:date]).to eq(Date.new(2026, 1, 2))
-      expect(result.last[:exits]).to eq(["09:00:00"])
+      expect(result.last[:exits]).to eq([ "09:00:00" ])
     end
 
     it "calculates correctly when the clock in and clock out are on different dates" do

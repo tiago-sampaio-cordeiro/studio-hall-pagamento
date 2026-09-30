@@ -58,7 +58,7 @@ RSpec.describe Admin::EmployeesController, type: :controller do
     context "when user is admin" do
       it "returns success" do
         sign_in admin
-        get :show, params: {id: employee}
+        get :show, params: { id: employee }
         expect(response).to have_http_status(:success)
       end
     end
@@ -66,14 +66,14 @@ RSpec.describe Admin::EmployeesController, type: :controller do
     context "when user is employee" do
       it "redirects to employees root" do
         sign_in employee
-        get :show, params: {id: employee}
+        get :show, params: { id: employee }
         expect(response).to redirect_to(employees_root_path)
       end
     end
 
     context "when user is not authenticated" do
       it "redirects to login" do
-        get :show, params: {id: employee}
+        get :show, params: { id: employee }
         expect(response).to redirect_to(new_session_path)
       end
     end
@@ -108,7 +108,7 @@ RSpec.describe Admin::EmployeesController, type: :controller do
     context "when user is admin" do
       it "returns success" do
         sign_in admin
-        get :edit, params: {id: employee}
+        get :edit, params: { id: employee }
         expect(response).to have_http_status(:success)
       end
     end
@@ -116,14 +116,14 @@ RSpec.describe Admin::EmployeesController, type: :controller do
     context "when user is employee" do
       it "redirects to employees root" do
         sign_in employee
-        get :edit, params: {id: employee}
+        get :edit, params: { id: employee }
         expect(response).to redirect_to(employees_root_path)
       end
     end
 
     context "when user is not authenticated" do
       it "redirects to login" do
-        get :edit, params: {id: employee}
+        get :edit, params: { id: employee }
         expect(response).to redirect_to(new_session_path)
       end
     end
