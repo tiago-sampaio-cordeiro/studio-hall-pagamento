@@ -12,9 +12,9 @@ namespace :demo do
       day = range.first.to_date
 
       while hours_created < total_hours && day <= range.last.to_date
-        hours_today = [total_hours - hours_created, 8].min
+        hours_today = [ total_hours - hours_created, 8 ].min
 
-        morning_hours = [hours_today, 4].min
+        morning_hours = [ hours_today, 4 ].min
         if morning_hours > 0
           start_time = day.to_time.change(hour: 8, min: 0, sec: 0)
           end_time = start_time + morning_hours.hours
@@ -23,7 +23,7 @@ namespace :demo do
           hours_created += morning_hours
         end
 
-        afternoon_hours = [hours_today - morning_hours, 4].min
+        afternoon_hours = [ hours_today - morning_hours, 4 ].min
         if afternoon_hours > 0
           start_time = day.to_time.change(hour: 13, min: 0, sec: 0)
           end_time = start_time + afternoon_hours.hours

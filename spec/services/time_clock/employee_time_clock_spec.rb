@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe TimeClock::EmployeeTimeClock, type: :service do
-  let(:employee) {create :employee}
+  let(:employee) { create :employee }
 
   describe "punch" do
     it "created correctly" do
-      register = TimeClock::EmployeeTimeClock.new(employee:employee,
+      register = TimeClock::EmployeeTimeClock.new(employee: employee,
                                                   kind: :clock_in,
                                                   punched_at: Time.current).call
       expect(register).to be_a(TimePunch)
     end
 
     it "created with kind correct" do
-      register = TimeClock::EmployeeTimeClock.new(employee:employee,
+      register = TimeClock::EmployeeTimeClock.new(employee: employee,
                                                   kind: :clock_in,
                                                   punched_at: Time.current).call
 
@@ -28,6 +28,5 @@ RSpec.describe TimeClock::EmployeeTimeClock, type: :service do
 
       expect(notifier).to have_received(:call)
     end
-
   end
 end

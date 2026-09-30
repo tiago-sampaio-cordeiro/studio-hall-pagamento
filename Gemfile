@@ -81,7 +81,7 @@ group :test do
 
   gem "rspec-rails", "~> 8.0", ">= 8.0.3"
 
-  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
+  gem "rails-controller-testing", "~> 1.0", ">= 1.0.5"
 
   gem "factory_bot_rails", "~> 6.5", ">= 6.5.1"
 
