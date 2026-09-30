@@ -41,10 +41,15 @@ class Admin::EmployeesController < ApplicationController
   private
 
   def registration_params
-    params.require(:user).permit(
-      :first_name, :last_name, :email_address, :active, :role, :password, :password_confirmation,
+    permitted = [
+      :first_name, :last_name, :email_address, :active, :password, :password_confirmation,
       :hourly_rate, :birth_date, :gender, :admission_date, :contract_type,
       :salary, :position, :phone_number, :rg, :cpf
-    )
+    ]
+
+    # Apenas permite alterar o role se quem está fazendo a requisição for admin
+    permitted << :role if Current.user&.admin?
+
+    params.require(:user).permit(permitted)
   end
 end
