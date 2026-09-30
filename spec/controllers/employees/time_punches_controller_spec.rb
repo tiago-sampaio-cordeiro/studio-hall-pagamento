@@ -53,7 +53,7 @@ RSpec.describe Employees::TimePunchesController, type: :controller do
         sign_in employee_user
         post :create, params: { kind: :clock_out }
         expect(response).not_to redirect_to(employees_time_punches_path)
-        expect(flash[:alert]).to eq("Aguarde 15 minutos!")
+        expect(flash[:alert]).to eq("Aguarde 5 minutos!")
       end
     end
 

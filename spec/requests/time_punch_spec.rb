@@ -52,7 +52,7 @@ RSpec.describe 'TimePunch', type: :request do
           email_address: employee_user.email_address,
           password: employee_user.password
         }
-        create(:time_punch, employee: employee_user.employee, kind: :clock_in, punched_at: 10.minutes.ago)
+        create(:time_punch, employee: employee_user.employee, kind: :clock_in, punched_at: 4.minutes.ago)
         post employees_time_punches_path, params: { kind: :clock_out }
 
         expect(TimePunch.last.kind).not_to eq("clock_out")
