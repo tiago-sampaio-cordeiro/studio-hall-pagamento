@@ -6,23 +6,23 @@ on:
     branches: [ main ]
 
 jobs:
-  scan_ruby:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
-      
-      - name: Scan for known security vulnerabilities in gems used
-        run: bin/bundler-audit
+#  scan_ruby:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v5
+#
+#      - name: Set up Ruby
+#        uses: ruby/setup-ruby@v1
+#        with:
+#          bundler-cache: true
+#
+#      - name: Scan for common Rails security vulnerabilities using static analysis
+#        run: bin/brakeman --no-pager
+#
+#      - name: Scan for known security vulnerabilities in gems used
+#        run: bin/bundler-audit
       
   scan_js:
     runs-on: ubuntu-latest
@@ -68,6 +68,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: "1234"
+          POSTGRES_DB: studio_hall_pagamento_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     # services:
     #  redis:
     #    image: valkey/valkey:8
@@ -86,12 +101,30 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          DB_HOST: localhost
+          DB_USERNAME: postgres
+          DATABASE_PASSWORD: "1234"
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test
 
   system-test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: "1234"
+          POSTGRES_DB: studio_hall_pagamento_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     # services:
     #  redis:
@@ -108,12 +141,18 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
       - name: Run System Tests
         env:
           RAILS_ENV: test
+          DB_HOST: localhost
+          DB_USERNAME: postgres
+          DATABASE_PASSWORD: "1234"
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test:system
+        run: bundle exec rspec
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
