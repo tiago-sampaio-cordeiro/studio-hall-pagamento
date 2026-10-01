@@ -72,29 +72,9 @@
             <span class="text-gray-500 text-sm">Gênero</span>
             <span class="text-white text-sm capitalize"><%= @user.employee&.gender || "—" %></span>
           </div>
-          <div class="flex justify-between">
-            <span class="text-gray-500 text-sm">Nacionalidade</span>
-            <span class="text-white text-sm capitalize"><%= @user.employee&.nationality || "—" %></span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-gray-500 text-sm">Naturalidade</span>
-            <span class="text-white text-sm"><%= [@user.employee&.city_born, @user.employee&.uf_born].compact.join(" / ").presence || "—" %></span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-gray-500 text-sm">Nome da Mãe</span>
-            <span class="text-white text-sm"><%= [@user.employee&.mother_name, @user.employee&.mother_last_name].compact.join(" ").presence || "—" %></span>
-          </div>
           <div class="flex flex-col gap-1 pt-3 border-t border-gray-700">
             <span class="text-gray-500 text-xs uppercase tracking-wider">Telefone</span>
             <span class="text-white text-sm"><%= @user.employee&.phone_number || "—" %></span>
-          </div>
-          <div class="flex flex-col gap-1 pt-3 border-t border-gray-700">
-            <span class="text-gray-500 text-xs uppercase tracking-wider">Contato de Emergência</span>
-            <span class="text-white text-sm"><%= @user.employee&.emergency_phone_number || "—" %></span>
-          </div>
-          <div class="flex flex-col gap-1 pt-3 border-t border-gray-700">
-            <span class="text-gray-500 text-xs uppercase tracking-wider">Chave PIX</span>
-            <span class="text-white text-sm"><%= @user.employee&.pix_key || "—" %></span>
           </div>
         </div>
       </div>
@@ -110,69 +90,6 @@
           <div class="flex justify-between">
             <span class="text-gray-500 text-sm">RG</span>
             <span class="text-white text-sm"><%= @user.employee&.rg || "—" %></span>
-          </div>
-          <div class="flex flex-col gap-1 pt-3 border-t border-gray-700">
-            <span class="text-gray-500 text-xs uppercase tracking-wider">Habilitação</span>
-            <% if @user.employee&.driver_license %>
-              <div class="space-y-1">
-                <div class="flex justify-between">
-                  <span class="text-gray-500 text-sm">Categoria</span>
-                  <span class="text-white text-sm"><%= @user.employee&.driver_license_category || "—" %></span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-500 text-sm">Número</span>
-                  <span class="text-white text-sm"><%= @user.employee&.driver_license_number || "—" %></span>
-                </div>
-              </div>
-            <% else %>
-              <span class="text-gray-600 text-sm">Não habilitado</span>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
-      <%# Saúde %>
-      <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6">
-        <p class="text-xs font-medium text-emerald-500 uppercase tracking-widest mb-4">Saúde</p>
-        <div class="space-y-3">
-          <div class="flex justify-between">
-            <span class="text-gray-500 text-sm">Grupo Sanguíneo</span>
-            <span class="text-white text-sm"><%= @user.employee&.blood_group || "—" %></span>
-          </div>
-          <div class="flex flex-col gap-1 pt-3 border-t border-gray-700">
-            <span class="text-gray-500 text-xs uppercase tracking-wider">Alergias</span>
-            <span class="text-white text-sm"><%= @user.employee&.allergies || "—" %></span>
-          </div>
-        </div>
-      </div>
-
-      <%# Endereço %>
-      <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6">
-        <p class="text-xs font-medium text-emerald-500 uppercase tracking-widest mb-4">Endereço</p>
-        <div class="space-y-3">
-          <div class="flex justify-between">
-            <span class="text-gray-500 text-sm">CEP</span>
-            <span class="text-white text-sm"><%= @user.employee&.cep || "—" %></span>
-          </div>
-          <div class="flex flex-col gap-1">
-            <span class="text-gray-500 text-sm">Rua</span>
-            <span class="text-white text-sm"><%= @user.employee&.address || "—" %></span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-gray-500 text-sm">Número</span>
-            <span class="text-white text-sm"><%= @user.employee&.house_number || "—" %></span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-gray-500 text-sm">Bairro</span>
-            <span class="text-white text-sm"><%= @user.employee&.neighborhood || "—" %></span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-gray-500 text-sm">Cidade / UF</span>
-            <span class="text-white text-sm"><%= [@user.employee&.city, @user.employee&.uf_live].compact.join(" / ").presence || "—" %></span>
-          </div>
-          <div class="flex flex-col gap-1 pt-3 border-t border-gray-700">
-            <span class="text-gray-500 text-xs uppercase tracking-wider">Referência</span>
-            <span class="text-white text-sm"><%= @user.employee&.reference || "—" %></span>
           </div>
         </div>
       </div>
@@ -194,24 +111,12 @@
               <span class="text-gray-500 text-sm">Salário Base</span>
               <span class="text-white text-sm"><%= number_to_currency(@user.employee&.salary, unit: "R$") %></span>
             </div>
-            <div class="flex justify-between col-span-2 sm:col-span-1">
-              <span class="text-gray-500 text-sm">PIS/PASEP</span>
-              <span class="text-white text-sm"><%= @user.employee&.pis || "—" %></span>
-            </div>
-            <div class="flex justify-between col-span-2 sm:col-span-1">
-              <span class="text-gray-500 text-sm">CTPS</span>
-              <span class="text-white text-sm"><%= @user.employee&.ctps || "—" %></span>
-            </div>
           </div>
         <% elsif @user.employee&.freelancer? %>
           <div class="grid grid-cols-2 gap-3">
             <div class="flex justify-between col-span-2 sm:col-span-1">
               <span class="text-gray-500 text-sm">Valor por Hora</span>
               <span class="text-white text-sm"><%= number_to_currency(@user.employee&.hourly_rate, unit: "R$") %></span>
-            </div>
-            <div class="flex justify-between col-span-2 sm:col-span-1">
-              <span class="text-gray-500 text-sm">CNPJ</span>
-              <span class="text-white text-sm"><%= @user.employee&.cnpj.presence || "—" %></span>
             </div>
           </div>
         <% else %>
