@@ -58,7 +58,20 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  # Define o host correto para os links de e-mail (ex: recuperação de senha)
+  config.action_mailer.default_url_options = { host: "studio-hall.com", protocol: "https" }
+
+  # Configuração do SMTP utilizando o Mailgun em produção
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              "smtp.mailgun.org",
+    port:                 587,
+    domain:               ENV.fetch("MAILGUN_DOMAIN"),
+    user_name:            ENV.fetch("MAILGUN_USER"),
+    password:             ENV.fetch("MAILGUN_PASSWORD"),
+    authentication:       "plain",
+    enable_starttls_auto: true
+  }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
   # config.action_mailer.smtp_settings = {
