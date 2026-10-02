@@ -70,6 +70,8 @@ Rails.application.configure do
     user_name:            ENV["MAILGUN_USER"],
     password:             ENV["MAILGUN_PASSWORD"],
     authentication:       "plain",
+    open_timeout: 15,
+    read_timeout: 15,
     enable_starttls_auto: true
   }
 
