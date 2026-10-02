@@ -52,6 +52,9 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# mailgun
+gem "mailgun-ruby"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -72,7 +75,6 @@ group :development do
   # gems usadas para emails
   gem "dotenv-rails", "~> 3.2"
   gem "letter_opener", "~> 1.10"
-  gem "mailgun-ruby"
 end
 
 group :test do
