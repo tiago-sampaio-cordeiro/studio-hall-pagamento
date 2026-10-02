@@ -72,6 +72,7 @@ group :development do
   # gems usadas para emails
   gem "dotenv-rails", "~> 3.2"
   gem "letter_opener", "~> 1.10"
+  gem "mailgun-ruby"
 end
 
 group :test do
