@@ -129,6 +129,14 @@ GEM
       railties (>= 6.1.0)
     faker (3.6.0)
       i18n (>= 1.8.11, < 2)
+    faraday (2.14.4)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-multipart (1.2.0)
+      multipart-post (~> 2.0)
+    faraday-net_http (3.4.4)
+      net-http (~> 0.5)
     ffi (1.17.3-x86_64-linux-gnu)
     foreman (0.90.0)
       thor (~> 1.4)
@@ -185,6 +193,11 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailgun-ruby (1.4.5)
+      faraday (~> 2.1)
+      faraday-multipart (< 2)
+      mini_mime
+      zeitwerk
     marcel (1.1.0)
     matrix (0.4.3)
     method_source (1.1.0)
@@ -194,6 +207,9 @@ GEM
     minitest (6.0.1)
       prism (~> 1.5)
     msgpack (1.8.0)
+    multipart-post (2.4.1)
+    net-http (0.9.1)
+      uri (>= 0.11.1)
     net-imap (0.6.3)
       date
       net-protocol
@@ -434,6 +450,7 @@ DEPENDENCIES
   jbuilder
   kamal
   letter_opener (~> 1.10)
+  mailgun-ruby
   pg
   propshaft
   pry-rails (~> 0.3.11)
