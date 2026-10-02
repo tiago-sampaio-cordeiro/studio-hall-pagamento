@@ -1,13 +1,18 @@
 require "mailgun"
 
 class MailgunDeliveryMethod
-  def initialize(settings)
-    @api_key = settings[:api_key]
-    @domain  = settings[:domain]
+  def initialize(settings = {})
+    @settings = settings
   end
 
   def deliver!(mail)
-    client = Mailgun::Client.new(@api_key)
+    api_key = @settings[:api_key] || ENV["MAILGUN_API_KEY"]
+    domain  = @settings[:domain]  || ENV["MAILGUN_DOMAIN"]
+
+    raise "MAILGUN_API_KEY não configurado" if api_key.blank?
+    raise "MAILGUN_DOMAIN não configurado" if domain.blank?
+
+    client = Mailgun::Client.new(api_key)
     message = Mailgun::MessageBuilder.new
 
     message.from(mail[:from].to_s)
@@ -23,7 +28,7 @@ class MailgunDeliveryMethod
       message.body_text(mail.body.decoded)
     end
 
-    client.send_message(@domain, message)
+    client.send_message(domain, message)
   end
 end
 
