@@ -42,11 +42,26 @@
     <%# Gráfico: horas trabalhadas por dia %>
     <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 mb-8">
       <h2 class="text-white text-lg font-semibold mb-4">Horas trabalhadas por dia</h2>
-      <%= column_chart @daily_hours_chart, colors: ["#3b82f6"], suffix: "h" %>
+      <%= column_chart @daily_hours_chart, colors: ["#3b82f6"], suffix: "h", id: "daily-hours-chart" %>
     </div>
   <% else %>
     <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 text-center text-gray-400">
       Nenhum ponto registrado neste mês ainda.
     </div>
   <% end %>
+  <script>
+      document.addEventListener("turbo:load", function () {
+          const chart = Chartkick.charts["daily-hours-chart"];
+          if (!chart) return;
+
+          const chartObject = chart.getChartObject();
+          chartObject.options.plugins.tooltip.callbacks.label = function (context) {
+              const decimalHours = context.parsed.y;
+              const hours = Math.floor(decimalHours);
+              const minutes = Math.round((decimalHours - hours) * 60);
+              return `${hours}h ${minutes.toString().padStart(2, "0")}min`;
+          };
+          chartObject.update();
+      });
+  </script>
 </div>
