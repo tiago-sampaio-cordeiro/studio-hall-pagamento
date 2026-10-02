@@ -61,18 +61,10 @@ Rails.application.configure do
   # Define o host correto para os links de e-mail (ex: recuperação de senha)
   config.action_mailer.default_url_options = { host: "studio-hall.com", protocol: "https" }
 
-  # Configuração do SMTP utilizando o Mailgun em produção
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address:              "smtp.mailgun.org",
-    port:                 587,
-    domain:               ENV["MAILGUN_DOMAIN"],
-    user_name:            ENV["MAILGUN_USER"],
-    password:             ENV["MAILGUN_PASSWORD"],
-    authentication:       "plain",
-    open_timeout: 15,
-    read_timeout: 15,
-    enable_starttls_auto: true
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: ENV["MAILGUN_API_KEY"],
+    domain: ENV["MAILGUN_DOMAIN"]
   }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
