@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: ENV["MAILGUN_DOMAIN"]
+  default from: "Studio Hall <no-reply@#{ENV["MAILGUN_DOMAIN"]}>"
   layout "mailer"
 end
